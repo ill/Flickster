@@ -17,6 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 import static com.codepath.flickster.R.id.tvOverview;
 import static com.codepath.flickster.R.id.tvTitle;
 
@@ -69,10 +71,18 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         int orientation = getContext().getResources().getConfiguration().orientation;
 
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Picasso.with(getContext()).load(movie.getBackdropPath()).into(viewHolder.ivImage);
+            Picasso.with(getContext()).load(movie.getBackdropPath())
+                    .placeholder(R.drawable.placeholder_movie)
+                    .resize(780, 0)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(viewHolder.ivImage);
         }
         else {
-            Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImage);
+            Picasso.with(getContext()).load(movie.getPosterPath())
+                    .placeholder(R.drawable.placeholder_movie)
+                    .resize(342, 0)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(viewHolder.ivImage);
         }
 
         return convertView;
